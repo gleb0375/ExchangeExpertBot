@@ -1,0 +1,6 @@
+telegram.bot.username=YourBotUsername
+telegram.bot.token=YourBotToken
+
+webclient.base.url.raiffeisenbank=https://www.rb.cz
+webclient.base.url.komercnibanka=https://www.kb.cz
+webclient.timeout=5000
