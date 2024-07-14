@@ -1,4 +1,4 @@
-package com.hhnatsiuk.exchangeExpert.service.bankClients.RaiffeisenBank;
+package com.hhnatsiuk.exchangeExpert.service.bankClients.raiffeisenBank;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

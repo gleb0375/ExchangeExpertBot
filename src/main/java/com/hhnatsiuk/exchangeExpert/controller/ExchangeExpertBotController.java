@@ -59,11 +59,11 @@ public class ExchangeExpertBotController extends TelegramLongPollingBot {
                     response.setText("Hello! \uD83D\uDC4B I’m your go-to bot for currency exchange rates and calculations in Czech banks. Type /help for commands.");
                     break;
                 case RATES_ALL:
-                    handleAllRates(response);
+                    handleAllRatesCommand(response);
                     break;
                 case RATE:
                     if (parts.length > 1) {
-                        handleSingleRate(parts[1], response);
+                        handleSingleRateCommand(parts[1], response);
                     } else {
                         response.setText("Please specify a bank code, e.g., /rate rb or /rate kb.");
                     }
@@ -72,10 +72,10 @@ public class ExchangeExpertBotController extends TelegramLongPollingBot {
                     response.setText("Currency calculator feature is under development.");
                     break;
                 case BANKS:
-                    handleBanks(response);
+                    handleBanksCommand(response);
                     break;
                 case HELP:
-                    handleHelp(response);
+                    handleHelpCommand(response);
                     break;
                 default:
                     response.setText("This command is not supported yet.");
@@ -90,10 +90,10 @@ public class ExchangeExpertBotController extends TelegramLongPollingBot {
         }
     }
 
-    private void handleAllRates(SendMessage response) {
+    private void handleAllRatesCommand(SendMessage response) {
         StringBuilder ratesMessage = new StringBuilder("Current rates for all banks:\n\n");
 
-        String[] banks = {"Raiffeisenbank", "Komercni banka"};
+        String[] banks = {"Raiffeisenbank", "Komercni banka", "Fio banka", "CSOB"};
         for (String bank : banks) {
             List<CurrencyData> rates = currencyRateService.getCurrentRates(bank);
             ratesMessage.append("Rates for ").append(bank).append(":\n");
@@ -109,7 +109,7 @@ public class ExchangeExpertBotController extends TelegramLongPollingBot {
         response.setText(ratesMessage.toString());
     }
 
-    private void handleSingleRate(String bankCode, SendMessage response) {
+    private void handleSingleRateCommand(String bankCode, SendMessage response) {
         bankCode = bankCode.trim().toLowerCase();
         String bankName = "";
 
@@ -119,6 +119,12 @@ public class ExchangeExpertBotController extends TelegramLongPollingBot {
                 break;
             case "kb":
                 bankName = Bank.KB.getFullName();
+                break;
+            case "fb":
+                bankName = Bank.FB.getFullName();
+                break;
+            case "csob":
+                bankName = Bank.CSOB.getFullName();
                 break;
             default:
                 response.setText("Bank code not recognized yet. Please use /rate <rb|kb>.");
@@ -136,11 +142,11 @@ public class ExchangeExpertBotController extends TelegramLongPollingBot {
         response.setText(ratesMessage.toString());
     }
 
-    private void handleHelp(SendMessage response) {
+    private void handleHelpCommand(SendMessage response) {
         response.setText(BotCommand.getAllCommands());
     }
 
-    private void handleBanks(SendMessage response) {
+    private void handleBanksCommand(SendMessage response) {
         response.setText(Bank.getAllBanksInfo());
     }
 }

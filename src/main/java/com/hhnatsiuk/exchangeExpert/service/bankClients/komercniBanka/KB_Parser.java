@@ -1,4 +1,4 @@
-package com.hhnatsiuk.exchangeExpert.service.bankClients.KomercniBanka;
+package com.hhnatsiuk.exchangeExpert.service.bankClients.komercniBanka;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

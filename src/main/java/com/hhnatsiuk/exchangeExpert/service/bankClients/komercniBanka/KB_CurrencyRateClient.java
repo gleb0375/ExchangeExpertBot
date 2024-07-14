@@ -1,4 +1,4 @@
-package com.hhnatsiuk.exchangeExpert.service.bankClients.KomercniBanka;
+package com.hhnatsiuk.exchangeExpert.service.bankClients.komercniBanka;
 
 import com.hhnatsiuk.exchangeExpert.model.CurrencyData;
 import com.hhnatsiuk.exchangeExpert.service.bankClients.BankCurrencyRateClient;
@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.hhnatsiuk.exchangeExpert.service.bankClients.KomercniBanka.KB_Parser.parse;
+import static com.hhnatsiuk.exchangeExpert.service.bankClients.komercniBanka.KB_Parser.parse;
 
 public class KB_CurrencyRateClient implements BankCurrencyRateClient {
 

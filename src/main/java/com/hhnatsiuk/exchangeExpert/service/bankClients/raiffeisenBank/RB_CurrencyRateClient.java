@@ -1,4 +1,4 @@
-package com.hhnatsiuk.exchangeExpert.service.bankClients.RaiffeisenBank;
+package com.hhnatsiuk.exchangeExpert.service.bankClients.raiffeisenBank;
 
 import com.hhnatsiuk.exchangeExpert.model.CurrencyData;
 import com.hhnatsiuk.exchangeExpert.service.bankClients.BankCurrencyRateClient;
@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import java.io.IOException;
 import java.util.List;
 
-import static com.hhnatsiuk.exchangeExpert.service.bankClients.RaiffeisenBank.RB_Parser.parse;
+import static com.hhnatsiuk.exchangeExpert.service.bankClients.raiffeisenBank.RB_Parser.parse;
 
 public class RB_CurrencyRateClient implements BankCurrencyRateClient {
 

@@ -1,7 +1,9 @@
 package com.hhnatsiuk.exchangeExpert.service.bankClients;
 
-import com.hhnatsiuk.exchangeExpert.service.bankClients.KomercniBanka.KB_CurrencyRateClient;
-import com.hhnatsiuk.exchangeExpert.service.bankClients.RaiffeisenBank.RB_CurrencyRateClient;
+import com.hhnatsiuk.exchangeExpert.service.bankClients.csob.CSOB_CurrencyRateClient;
+import com.hhnatsiuk.exchangeExpert.service.bankClients.fioBank.FB_CurrencyRateClient;
+import com.hhnatsiuk.exchangeExpert.service.bankClients.komercniBanka.KB_CurrencyRateClient;
+import com.hhnatsiuk.exchangeExpert.service.bankClients.raiffeisenBank.RB_CurrencyRateClient;
 import com.hhnatsiuk.exchangeExpert.util.Bank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,12 @@ public class BankCurrencyRateClientFactory {
         }
         if (Bank.KB.getFullName().equalsIgnoreCase(bankName)) {
             return new KB_CurrencyRateClient(webClientBuilder.baseUrl("https://www.kb.cz").build());
+        }
+        if (Bank.FB.getFullName().equalsIgnoreCase(bankName)) {
+            return new FB_CurrencyRateClient(webClientBuilder.baseUrl("https://www.fio.cz").build());
+        }
+        if (Bank.CSOB.getFullName().equalsIgnoreCase(bankName)) {
+            return new CSOB_CurrencyRateClient(webClientBuilder.baseUrl("https://www.csob.cz").build());
         }
 
         throw new IllegalArgumentException("Unsupported bank: " + bankName);
