@@ -4,7 +4,7 @@ public enum BotCommand {
     START("/start", "Start the bot."),
     RATE("/rate", "Get a bank's rate. Usage: /rate <bank_code>."),
     RATES_ALL("/rates", "Get all banks' rates."),
-    CALCULATE("/calculate", "Currency calculator."),
+    CALCULATE("/calculate", "Currency calculator. Usage: /calculate <bank_code> <from_currency> <to_currency> <amount>. Example: /calculate rb eur usd 1000"),
     HELP("/help", "List of commands."),
     BANKS("/banks", "List of banks");
 

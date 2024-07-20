@@ -3,6 +3,8 @@ package com.hhnatsiuk.exchangeExpert.service.bankClients.fioBank;
 import com.hhnatsiuk.exchangeExpert.model.CurrencyData;
 import com.hhnatsiuk.exchangeExpert.service.bankClients.BankCurrencyRateClient;
 import com.hhnatsiuk.exchangeExpert.util.Bank;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,8 +18,9 @@ import java.util.stream.Collectors;
 
 import static com.hhnatsiuk.exchangeExpert.service.bankClients.fioBank.FB_Parser.parse;
 
+public class FB_CurrencyRateClient implements BankCurrencyRateClient {
 
-public class FB_CurrencyRateClient  implements BankCurrencyRateClient {
+    private static final Logger log = LogManager.getLogger(FB_CurrencyRateClient.class);
 
     private final WebClient webClient;
 
@@ -27,9 +30,12 @@ public class FB_CurrencyRateClient  implements BankCurrencyRateClient {
 
     @Override
     public List<CurrencyData> getCurrentRates() {
+        String url = "https://www.fio.cz/akcie-investice/dalsi-sluzby-fio/devizove-konverze";
+        log.info("Sending request to Fio Bank API: {}", url);
+
         try {
             Flux<DataBuffer> responseFlux = webClient.get()
-                    .uri("https://www.fio.cz/akcie-investice/dalsi-sluzby-fio/devizove-konverze")
+                    .uri(url)
                     .retrieve()
                     .bodyToFlux(DataBuffer.class);
 
@@ -43,14 +49,18 @@ public class FB_CurrencyRateClient  implements BankCurrencyRateClient {
                     .collect(Collectors.joining())
                     .block();
 
-            List<CurrencyData> rates = parse(response, Bank.KB.getShortName());
+            //log.info("Response received from Fio Bank API: {}", response);
 
+            List<CurrencyData> rates = parse(response, Bank.FB.getShortName());
+
+            log.info("Parsed {} currency rates from Fio Bank API", rates.size());
             return rates;
 
         } catch (WebClientResponseException e) {
-            e.printStackTrace();
+            log.error("Error fetching rates from Fio Bank API: {}", e.getMessage(), e);
             return List.of();
         } catch (IOException e) {
+            log.error("Error parsing rates from Fio Bank API: {}", e.getMessage(), e);
             throw new RuntimeException(e);
         }
     }

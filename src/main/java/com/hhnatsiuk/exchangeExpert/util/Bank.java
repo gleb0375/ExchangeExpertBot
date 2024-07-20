@@ -1,11 +1,10 @@
 package com.hhnatsiuk.exchangeExpert.util;
 
 public enum Bank {
-    CS("Ceska sporitelna", "CS"),
-    CSOB("CSOB", "CSOB"),
-    KB("Komercni banka", "KB"),
-    RB("Raiffeisenbank", "RB"),
-    FB("Fio banka", "FB");
+    CSOB("CSOB", "csob"),
+    KB("Komercni banka", "kb"),
+    RB("Raiffeisenbank", "rb"),
+    FB("Fio banka", "fb");
 
     private final String fullName;
     private final String shortName;
@@ -25,7 +24,7 @@ public enum Bank {
 
     @Override
     public String toString() {
-        return this.fullName + " - " + this.shortName;
+        return this.fullName + " - " + this.shortName.toUpperCase();
     }
 
     public static String getAllBanksInfo() {
@@ -34,5 +33,14 @@ public enum Bank {
             builder.append(bank.toString()).append("\n");
         }
         return builder.toString();
+    }
+
+    public static Bank getByShortName(String shortName) {
+        for (Bank bank : values()) {
+            if (bank.getShortName().equalsIgnoreCase(shortName)) {
+                return bank;
+            }
+        }
+        return null;
     }
 }
